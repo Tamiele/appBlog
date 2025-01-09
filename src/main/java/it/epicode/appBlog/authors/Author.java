@@ -1,9 +1,13 @@
 package it.epicode.appBlog.authors;
 
+import it.epicode.appBlog.posts.BlogPost;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,9 +24,10 @@ public class Author {
 
     private String email;
 
-    private LocalDate dataDiNascita;
+    private Date dataDiNascita;
 
     private String avatar;
+
 
 
 }

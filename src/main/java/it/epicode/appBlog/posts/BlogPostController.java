@@ -1,6 +1,8 @@
 package it.epicode.appBlog.posts;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,20 @@ public class BlogPostController {
     @Autowired
     private BlogPostService postService;
 
-    //chiamate sull' endpoint
+
+//    @GetMapping("/paged")
+//    public ResponseEntity<Page<BlogPost>> getAllBlogPosts(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size,
+//            @RequestParam(defaultValue = "id") String sortBy) {
+//        return ResponseEntity.ok(postService.findAll(page, size, sortBy));
+//    }
+
+    //altro tipo di paginazione
+    @GetMapping("/paged")
+    public ResponseEntity<Page<BlogPost>> getAllBlogPosts(Pageable page) {
+        return ResponseEntity.ok(postService.findAll(page));
+    }
 
 
     //chimate get per la findAll sull' endpoint
@@ -30,7 +45,7 @@ public class BlogPostController {
 
     //chiamata per creare un nuovo post
     @PostMapping
-    public ResponseEntity<BlogPost> createPost(@RequestBody BlogPost blogPost) {
+    public ResponseEntity<BlogPost> createPost(@RequestBody BlogPostDto blogPost) {
         return new ResponseEntity(postService.createPost(blogPost), HttpStatus.CREATED);
     }
 
